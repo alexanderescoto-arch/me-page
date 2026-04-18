@@ -13,8 +13,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-
-            /* Fondo rosa */
             background: linear-gradient(135deg, #ff9ecf, #ffc0cb);
         }
 
@@ -64,6 +62,39 @@
         button:hover {
             transform: scale(1.1);
         }
+
+        /* MODAL */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #contenidoModal {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 320px;
+        }
+
+        #contenidoModal img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        #cerrar {
+            margin-top: 10px;
+            background: #ff4d88;
+            color: white;
+        }
     </style>
 </head>
 
@@ -78,30 +109,51 @@
         </div>
     </div>
 
+    <!-- MODAL -->
+    <div id="modal">
+        <div id="contenidoModal">
+            <h2>Exacto 😌</h2>
+            <p>Sos muy inteligente Helen</p>
+
+            <!-- Imagen de internet -->
+            <img src="https://i.shgcdn.com/0465384c-9563-417b-b638-517529f21c3c/-/format/auto/-/preview/3000x3000/-/quality/lighter/" alt="imagen">
+
+            <br>
+            <button id="cerrar">Cerrar</button>
+        </div>
+    </div>
+
     <script>
         const botonSi = document.getElementById("si");
         const botonNo = document.getElementById("no");
+        const contenedor = document.getElementById("contenedor");
+
+        const modal = document.getElementById("modal");
+        const cerrar = document.getElementById("cerrar");
 
         function moverBoton() {
-            const x = Math.random() * 250;
-            const y = Math.random() * 150;
+            const maxX = contenedor.clientWidth - botonSi.offsetWidth;
+            const maxY = contenedor.clientHeight - botonSi.offsetHeight;
+
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
 
             botonSi.style.left = x + "px";
             botonSi.style.top = y + "px";
         }
 
-        // Funciona con mouse
-        botonSi.addEventListener("mouseover", moverBoton);
+        // Botón "Sí" huye
+        botonSi.addEventListener("pointerenter", moverBoton);
+        botonSi.addEventListener("pointerdown", moverBoton);
 
-        // Funciona con click
-        botonSi.addEventListener("click", moverBoton);
+        // Botón "No" abre ventana con imagen
+        botonNo.addEventListener("click", function () {
+            modal.style.display = "flex";
+        });
 
-        // Funciona en pantalla táctil
-        botonSi.addEventListener("touchstart", moverBoton);
-
-        // Botón "No"
-        botonNo.addEventListener("click", function() {
-            alert("Exacto, sos muy inteligente Helen");
+        // Cerrar modal
+        cerrar.addEventListener("click", function () {
+            modal.style.display = "none";
         });
     </script>
 
