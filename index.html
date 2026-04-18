@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: center;
 
-            /* Fondo rosa degradado */
+            /* Fondo rosa */
             background: linear-gradient(135deg, #ff9ecf, #ffc0cb);
         }
 
@@ -82,16 +82,24 @@
         const botonSi = document.getElementById("si");
         const botonNo = document.getElementById("no");
 
-        // Hace que el botón "Sí" se mueva
-        botonSi.addEventListener("mouseover", function() {
+        function moverBoton() {
             const x = Math.random() * 250;
             const y = Math.random() * 150;
 
             botonSi.style.left = x + "px";
             botonSi.style.top = y + "px";
-        });
+        }
 
-        // Mensaje al presionar "No"
+        // Funciona con mouse
+        botonSi.addEventListener("mouseover", moverBoton);
+
+        // Funciona con click
+        botonSi.addEventListener("click", moverBoton);
+
+        // Funciona en pantalla táctil
+        botonSi.addEventListener("touchstart", moverBoton);
+
+        // Botón "No"
         botonNo.addEventListener("click", function() {
             alert("Exacto, sos muy inteligente Helen");
         });
